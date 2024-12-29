@@ -25,45 +25,30 @@ export default function PaymentsList({
 
   const handleAdd = (e) => {
     e.preventDefault()
-    onAdd({ 
-      date, 
-      amount: Number(amount), 
-      note 
+    onAdd({
+      date,
+      amount: Number(amount),
+      note
     })
     setDate('')
     setAmount('')
     setNote('')
   }
 
-  // Calculate total paid
   const totalPaid = payments.reduce((sum, pay) => sum + pay.amount, 0)
   const percentage = pledgeAmount > 0 ? (totalPaid / pledgeAmount) * 100 : 0
 
   return (
-    <Paper
-      sx={{
-        p: 2,
-        mb: 2,
-      }}
-    >
-      <Typography
-        variant="h5"
-        sx={{ mb: 2 }}
-      >
+    <Paper sx={{ p:2, mb:2 }}>
+      <Typography variant="h5" sx={{ mb:2 }}>
         Payment History
       </Typography>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>
-              Date
-            </TableCell>
-            <TableCell>
-              Amount
-            </TableCell>
-            <TableCell>
-              Note
-            </TableCell>
+            <TableCell>Date</TableCell>
+            <TableCell>Amount</TableCell>
+            <TableCell>Note</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -76,37 +61,17 @@ export default function PaymentsList({
           ) : (
             payments.map(p => (
               <TableRow key={p._id}>
-                <TableCell>
-                  {formatDate(p.date)}
-                </TableCell>
-                <TableCell>
-                  {formatCurrency(p.amount)}
-                </TableCell>
-                <TableCell>
-                  {p.note}
-                </TableCell>
+                <TableCell>{formatDate(p.date)}</TableCell>
+                <TableCell>{formatCurrency(p.amount)}</TableCell>
+                <TableCell>{p.note}</TableCell>
               </TableRow>
             ))
           )}
         </TableBody>
       </Table>
-
-      {/* Progress Section */}
-      <Box
-        display="flex"
-        alignItems="center"
-        gap={2}
-        mt={3}
-      >
-        <Box
-          position="relative"
-          display="inline-flex"
-        >
-          <CircularProgress
-            variant="determinate"
-            value={percentage}
-            size={110}
-          />
+      <Box display="flex" alignItems="center" gap={2} mt={3}>
+        <Box position="relative" display="inline-flex">
+          <CircularProgress variant="determinate" value={percentage} size={110} />
           <Box
             position="absolute"
             top={0}
@@ -117,30 +82,16 @@ export default function PaymentsList({
             alignItems="center"
             justifyContent="center"
           >
-            <Typography 
-              variant="caption" 
-              component="div" 
-              color="text.secondary"
-            >
+            <Typography variant="caption" component="div" color="text.secondary">
               {`${Math.round(percentage)}%`} Paid
             </Typography>
           </Box>
         </Box>
       </Box>
-      <Typography
-        variant="subtitle1"
-        sx={{ mt: 3, mb: 1 }}
-      >
+      <Typography variant="subtitle1" sx={{ mt:3, mb:1 }}>
         Add Payment Point
       </Typography>
-      <Box
-        component="form"
-        onSubmit={handleAdd}
-        display="flex"
-        flexDirection="column"
-        gap={2}
-        mt={2}
-      >
+      <Box component="form" onSubmit={handleAdd} display="flex" flexDirection="column" gap={2} mt={2}>
         <TextField
           label="Date"
           type="date"
@@ -176,10 +127,7 @@ export default function PaymentsList({
           fullWidth
           required
         />
-        <Button
-          variant="contained"
-          type="submit"
-        >
+        <Button variant="contained" type="submit">
           Add
         </Button>
       </Box>

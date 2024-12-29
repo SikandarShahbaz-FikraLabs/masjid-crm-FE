@@ -11,18 +11,6 @@ export const getPledger = (id) =>
 export const updatePledger = (id, data) =>
   axios.put(`${API_URL}/pledgers/${id}`, data)
 
-export const getContacts = (pledgerId) =>
-  axios.get(`${API_URL}/contacts/${pledgerId}`)
-
-export const addContact = (data) =>
-  axios.post(`${API_URL}/contacts`, data)
-
-export const getPayments = (pledgerId) =>
-  axios.get(`${API_URL}/payments/${pledgerId}`)
-
-export const addPayment = (data) =>
-  axios.post(`${API_URL}/payments`, data)
-
 export const importPledgers = (file) => {
   const formData = new FormData()
   formData.append('file', file)
@@ -30,3 +18,24 @@ export const importPledgers = (file) => {
     headers: { 'Content-Type': 'multipart/form-data' }
   })
 }
+
+export const getContacts = (pledgerId) =>
+  axios.get(`${API_URL}/contacts/${pledgerId}`)
+
+export const addContact = (data) =>
+  axios.post(`${API_URL}/contacts`, data)
+
+export const getPledges = (params) =>
+  axios.get(`${API_URL}/pledges`, { params })
+
+export const getPledge = (id) =>
+  axios.get(`${API_URL}/pledges/${id}`)
+
+export const updatePledge = (id, data) =>
+  axios.put(`${API_URL}/pledges/${id}`, data)
+
+export const getPayments = (pledgeId) =>
+  axios.get(`${API_URL}/payments/${pledgeId}`)
+
+export const addPayment = (data) =>
+  axios.post(`${API_URL}/payments`, data)
