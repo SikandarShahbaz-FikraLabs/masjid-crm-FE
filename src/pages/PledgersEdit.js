@@ -40,7 +40,6 @@ export default function PledgersEdit() {
     setLoading(true)
     try {
       const res = await getPledger(id)
-      // res.data = { pledger, contacts, pledges }
       setPledger(res.data.pledger)
       setContacts(res.data.contacts)
       setPledges(res.data.pledges)
@@ -58,8 +57,8 @@ export default function PledgersEdit() {
   }
 
   const handleSavePledger = async () => {
-    setLoading(true)
     try {
+      setLoading(true)
       await updatePledger(id, {
         name: editName,
         email: editEmail,
@@ -77,8 +76,9 @@ export default function PledgersEdit() {
         message:'Failed to update pledger',
         severity:'error'
       })
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   if (loading && !pledger) return <Loader />
@@ -86,7 +86,7 @@ export default function PledgersEdit() {
 
   return (
     <Box>
-      {loading && <Loader />}
+      {loading && pledger && <Loader />}
       <Button
         onClick={() => navigate('/pledgers')}
         sx={{ mb:2 }}
@@ -98,12 +98,7 @@ export default function PledgersEdit() {
         Edit Pledger
       </Typography>
 
-      <Paper
-        sx={{
-          mb: 4,
-          p: 2
-        }}
-      >
+      <Paper sx={{ mb:4, p:2 }}>
         <TextField
           label="Name"
           value={editName}
@@ -128,50 +123,46 @@ export default function PledgersEdit() {
           variant="contained"
           sx={{ mt:2 }}
           onClick={handleSavePledger}
+          disabled={loading}
         >
-          Save Pledger
+          {loading ? 'Saving...' : 'Save Pledger'}
         </Button>
       </Paper>
 
       <ContactsList
         contacts={contacts}
-        onAdd={(data) => {
+        onAdd={async (data) => {
           setLoading(true)
-          fetch(`${process.env.REACT_APP_API_URL}/contacts`, {
-            method:'POST',
-            headers:{ 'Content-Type':'application/json' },
-            body:JSON.stringify({
-              ...data,
-              pledgerId:id
+          try {
+            await fetch(`${process.env.REACT_APP_API_URL}/contacts`, {
+              method:'POST',
+              headers:{ 'Content-Type':'application/json' },
+              body:JSON.stringify({
+                ...data,
+                pledgerId:id
+              })
             })
-          })
-          .then(r => r.json())
-          .then(() => {
-            loadData()
             setNotif({
               open:true,
               message:'Contact added',
               severity:'success'
             })
-          })
-          .catch(() => {
+            loadData()
+          } catch {
             setNotif({
               open:true,
               message:'Failed to add contact',
               severity:'error'
             })
-          })
-          .finally(() => setLoading(false))
+          } finally {
+            setLoading(false)
+          }
         }}
       />
 
-      <Typography
-        variant="h5"
-        sx={{ mt:4, mb:2 }}
-      >
+      <Typography variant="h5" sx={{ mt:4, mb:2 }}>
         Pledges for {pledger.name}
       </Typography>
-
       {pledges.length === 0 ? (
         <Typography>No pledges found</Typography>
       ) : (

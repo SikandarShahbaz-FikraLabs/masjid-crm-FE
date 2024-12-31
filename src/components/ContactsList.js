@@ -10,7 +10,7 @@ import {
   TableRow,
   TableCell,
   TableBody,
-  MenuItem,
+  MenuItem
 } from '@mui/material'
 import { formatDate } from '../utils/formatters'
 
@@ -21,75 +21,55 @@ export default function ContactsList({
   const [date, setDate] = useState('')
   const [method, setMethod] = useState('')
   const [note, setNote] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleAdd = (e) => {
+  const handleAdd = async (e) => {
     e.preventDefault()
-    onAdd({ date, method, note })
-    setDate('')
-    setMethod('')
-    setNote('')
+    try {
+      setLoading(true)
+      await onAdd({ date, method, note })
+      setDate('')
+      setMethod('')
+      setNote('')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <Paper
-      sx={{
-        p:2,
-        mb:2,
-      }}
-    >
-      <Typography
-        variant="h5"
-        sx={{ mb:2 }}
-      >
+    <Paper sx={{ p:2, mb:2 }}>
+      <Typography variant="h5" sx={{ mb:2 }}>
         Contact History
       </Typography>
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>
-                Date
-            </TableCell>
-            <TableCell>
-                Method
-            </TableCell>
-            <TableCell>
-                Note
-            </TableCell>
+            <TableCell>Date</TableCell>
+            <TableCell>Method</TableCell>
+            <TableCell>Note</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {contacts.length === 0 ? (
             <TableRow>
-              <TableCell 
-                colSpan={3} 
-                align="center"
-              >
+              <TableCell colSpan={3} align="center">
                 <Typography color="text.secondary">
-                    No contacts recorded
+                  No contacts recorded
                 </Typography>
               </TableCell>
             </TableRow>
           ) : (
             contacts.map(c => (
               <TableRow key={c._id}>
-                <TableCell>
-                  {formatDate(c.date)}
-                </TableCell>
-                <TableCell>
-                  {c.method}
-                </TableCell>
-                <TableCell>
-                  {c.note}
-                </TableCell>
+                <TableCell>{formatDate(c.date)}</TableCell>
+                <TableCell>{c.method}</TableCell>
+                <TableCell>{c.note}</TableCell>
               </TableRow>
             ))
           )}
         </TableBody>
       </Table>
-      <Typography
-        variant="subtitle1"
-        sx={{ mt: 3, mb: 1 }}
-      >
+      <Typography variant="subtitle1" sx={{ mt: 3, mb: 1 }}>
         Add Contact Point
       </Typography>
       <Box
@@ -126,12 +106,8 @@ export default function ContactsList({
           fullWidth
           required
         >
-          <MenuItem value="Phone">
-            Phone
-          </MenuItem>
-          <MenuItem value="Email">
-            Email
-          </MenuItem>
+          <MenuItem value="Phone">Phone</MenuItem>
+          <MenuItem value="Email">Email</MenuItem>
         </TextField>
         <TextField
           label="Note"
@@ -145,8 +121,9 @@ export default function ContactsList({
         <Button
           variant="contained"
           type="submit"
+          disabled={loading}
         >
-          Add
+          {loading ? 'Saving...' : 'Add'}
         </Button>
       </Box>
     </Paper>

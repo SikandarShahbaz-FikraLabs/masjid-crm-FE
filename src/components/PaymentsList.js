@@ -22,17 +22,23 @@ export default function PaymentsList({
   const [date, setDate] = useState('')
   const [amount, setAmount] = useState('')
   const [note, setNote] = useState('')
+  const [loading, setLoading] = useState(false)
 
-  const handleAdd = (e) => {
+  const handleAdd = async (e) => {
     e.preventDefault()
-    onAdd({
-      date,
-      amount: Number(amount),
-      note
-    })
-    setDate('')
-    setAmount('')
-    setNote('')
+    try {
+      setLoading(true)
+      await onAdd({
+        date,
+        amount: Number(amount),
+        note
+      })
+      setDate('')
+      setAmount('')
+      setNote('')
+    } finally {
+      setLoading(false)
+    }
   }
 
   const totalPaid = payments.reduce((sum, pay) => sum + pay.amount, 0)
@@ -91,7 +97,14 @@ export default function PaymentsList({
       <Typography variant="subtitle1" sx={{ mt:3, mb:1 }}>
         Add Payment Point
       </Typography>
-      <Box component="form" onSubmit={handleAdd} display="flex" flexDirection="column" gap={2} mt={2}>
+      <Box
+        component="form"
+        onSubmit={handleAdd}
+        display="flex"
+        flexDirection="column"
+        gap={2}
+        mt={2}
+      >
         <TextField
           label="Date"
           type="date"
@@ -127,8 +140,12 @@ export default function PaymentsList({
           fullWidth
           required
         />
-        <Button variant="contained" type="submit">
-          Add
+        <Button
+          variant="contained"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? 'Saving...' : 'Add'}
         </Button>
       </Box>
     </Paper>
