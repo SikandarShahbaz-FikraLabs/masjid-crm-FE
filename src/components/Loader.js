@@ -1,7 +1,7 @@
 import React from 'react'
 import {
-    Box,
-    CircularProgress,
+  Box,
+  CircularProgress,
 } from '@mui/material'
 
 export default function Loader() {

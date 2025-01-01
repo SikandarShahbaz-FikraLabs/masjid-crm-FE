@@ -1,10 +1,24 @@
 import React from 'react'
 import { CssBaseline } from '@mui/material'
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+} from 'react-router-dom'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
-import { AppBar, Toolbar, Typography, Container, Button } from '@mui/material'
-import { AnimatePresence, motion } from 'framer-motion'
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Container,
+  Button,
+} from '@mui/material'
+import {
+  AnimatePresence,
+  motion,
+} from 'framer-motion'
 import PledgersList from './pages/PledgersList'
 import PledgersEdit from './pages/PledgersEdit'
 import PledgesList from './pages/PledgesList'
@@ -17,13 +31,24 @@ export default function App() {
       <Router>
         <AppBar position="static">
           <Toolbar>
-            <Typography variant="h6" sx={{ flexGrow: 1 }}>
+            <Typography
+              variant="h6"
+              sx={{ flexGrow: 1 }}
+            >
               Masjid CRM
             </Typography>
-            <Button color="inherit" component={Link} to="/pledges">
+            <Button
+              color="inherit"
+              component={Link}
+              to="/pledges"
+            >
               Pledges
             </Button>
-            <Button color="inherit" component={Link} to="/pledgers">
+            <Button
+              color="inherit"
+              component={Link}
+              to="/pledgers"
+            >
               Pledgers
             </Button>
           </Toolbar>

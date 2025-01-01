@@ -1,5 +1,11 @@
 import React, { useState } from 'react'
-import { Paper, Box, TextField, Button, Typography } from '@mui/material'
+import {
+  Paper,
+  Box,
+  TextField,
+  Button,
+  Typography,
+} from '@mui/material'
 
 export default function PledgeEditForm({
   pledge,
@@ -17,7 +23,12 @@ export default function PledgeEditForm({
   }
 
   return (
-    <Paper sx={{ p:2, mb:2 }}>
+    <Paper
+      sx={{
+        p:2,
+        mb:2,
+      }}
+    >
       <Box
         component="form"
         onSubmit={handleSubmit}
@@ -25,7 +36,10 @@ export default function PledgeEditForm({
         flexDirection="column"
         gap={2}
       >
-        <Typography variant="h5" sx={{ mb:2 }}>
+        <Typography
+          variant="h5"
+          sx={{ mb:2 }}
+        >
           Pledge Details
         </Typography>
         <TextField

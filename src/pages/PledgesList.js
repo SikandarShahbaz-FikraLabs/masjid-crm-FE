@@ -1,5 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { getPledges, importPledgers } from '../services/api'
+import React, {
+  useEffect,
+  useState,
+  useRef,
+} from 'react'
+import {
+  getPledges,
+  importPledgers,
+} from '../services/api'
 import PledgesTable from '../components/PledgesTable'
 import CSVImportForm from '../components/CSVImportForm'
 import DashboardStats from '../components/DashboardStats'
@@ -9,7 +16,7 @@ import {
   Select,
   MenuItem,
   Typography,
-  Button
+  Button,
 } from '@mui/material'
 import Loader from '../components/Loader'
 import Notification from '../components/Notification'
@@ -46,7 +53,6 @@ export default function PledgesList() {
     loadPledges()
   }, [filters, page])
 
-  // Debounce user input so we don't call the API on every keystroke
   useEffect(() => {
     clearTimeout(debounceTimer.current)
     debounceTimer.current = setTimeout(() => {
@@ -113,11 +119,22 @@ export default function PledgesList() {
         unfulfilledCount={stats.unfulfilledCount}
         loading={loading}
       />
-      <Typography variant="h5" mb={2}>
+      <Typography
+        variant="h5"
+        mb={2}
+      >
         Pledges
       </Typography>
-      <CSVImportForm onImport={handleImport} loading={loading} />
-      <Box display="flex" flexWrap="wrap" gap={2} mb={2}>
+      <CSVImportForm
+        onImport={handleImport}
+        loading={loading}
+      />
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        gap={2}
+        mb={2}
+      >
         <TextField
           label="Pledger Name"
           value={localFilters.pledgerName}
@@ -139,13 +156,25 @@ export default function PledgesList() {
           <MenuItem value="">
             <em>All Status</em>
           </MenuItem>
-          <MenuItem value="unfulfilled">Unfulfilled</MenuItem>
-          <MenuItem value="partial">Partial</MenuItem>
-          <MenuItem value="fulfilled">Fulfilled</MenuItem>
+          <MenuItem value="unfulfilled">
+            Unfulfilled
+          </MenuItem>
+          <MenuItem value="partial">
+            Partial
+          </MenuItem>
+          <MenuItem value="fulfilled">
+            Fulfilled
+          </MenuItem>
         </Select>
       </Box>
       {loading ? <Loader /> : <PledgesTable pledges={pledges} />}
-      <Box mt={2} display="flex" justifyContent="center" alignItems="center" gap={2}>
+      <Box
+        mt={2}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        gap={2}
+      >
         <Button
           variant="outlined"
           onClick={() => setPage(page > 1 ? page - 1 : 1)}

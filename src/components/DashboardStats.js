@@ -34,7 +34,10 @@ export default function DashboardStats({
           md={6}
         >
           <Paper sx={{ p:2 }}>
-            <Typography variant="h5" fontWeight="bold">
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+            >
                 Total Pledges
             </Typography>
             {loading ? <CircularProgress /> : <Typography variant="h4">
@@ -48,8 +51,11 @@ export default function DashboardStats({
           md={6}
         >
           <Paper sx={{ p:2 }}>
-            <Typography variant="h5" fontWeight="bold">
-                Total Amount Pledged
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+            >
+              Total Amount Pledged
             </Typography>
             {loading ? <CircularProgress /> : <Typography variant="h4">
                 {formatCurrency(totalPledged)}
@@ -62,8 +68,11 @@ export default function DashboardStats({
           md={4}
         >
           <Paper sx={{ p:2 }}>
-            <Typography variant="h5" fontWeight="bold">
-                Fulfilled Pledges
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+            >
+              Fulfilled Pledges
             </Typography>
             {loading ? <CircularProgress /> : <Typography variant="h5">
                 {fulfilledCount}
@@ -76,8 +85,11 @@ export default function DashboardStats({
           md={4}
         >
           <Paper sx={{ p:2 }}>
-            <Typography variant="h5" fontWeight="bold">
-                Partial Pledges
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+            >
+              Partial Pledges
             </Typography>
             {loading ? <CircularProgress /> : <Typography variant="h5">
                 {partialCount}
@@ -90,8 +102,11 @@ export default function DashboardStats({
           md={4}
         >
           <Paper sx={{ p:2 }}>
-            <Typography variant="h5" fontWeight="bold">
-                Unfulfilled Pledges
+            <Typography
+              variant="h5"
+              fontWeight="bold"
+            >
+              Unfulfilled Pledges
             </Typography>
             {loading ? <CircularProgress /> : <Typography variant="h5">
                 {unfulfilledCount}

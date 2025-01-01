@@ -37,8 +37,16 @@ export default function ContactsList({
   }
 
   return (
-    <Paper sx={{ p:2, mb:2 }}>
-      <Typography variant="h5" sx={{ mb:2 }}>
+    <Paper
+      sx={{
+        p:2,
+        mb:2,
+      }}
+    >
+      <Typography
+        variant="h5"
+        sx={{ mb:2 }}
+      >
         Contact History
       </Typography>
       <Table>
@@ -69,7 +77,13 @@ export default function ContactsList({
           )}
         </TableBody>
       </Table>
-      <Typography variant="subtitle1" sx={{ mt: 3, mb: 1 }}>
+      <Typography
+        variant="subtitle1"
+        sx={{
+          mt: 3,
+          mb: 1,
+        }}
+      >
         Add Contact Point
       </Typography>
       <Box
@@ -106,8 +120,12 @@ export default function ContactsList({
           fullWidth
           required
         >
-          <MenuItem value="Phone">Phone</MenuItem>
-          <MenuItem value="Email">Email</MenuItem>
+          <MenuItem value="Phone">
+            Phone
+          </MenuItem>
+          <MenuItem value="Email">
+            Email
+          </MenuItem>
         </TextField>
         <TextField
           label="Note"

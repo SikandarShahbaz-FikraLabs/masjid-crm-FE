@@ -1,18 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { getPledgers, importPledgers } from '../services/api'
+import React, {
+  useEffect,
+  useState,
+} from 'react'
+import { getPledgers } from '../services/api'
 import PledgersTable from '../components/PledgersTable'
-import { Box, TextField, Typography, Button } from '@mui/material'
+import {
+  Box,
+  TextField,
+  Typography,
+  Button,
+} from '@mui/material'
 import Loader from '../components/Loader'
 import Notification from '../components/Notification'
 
 export default function PledgersList() {
   const [pledgers, setPledgers] = useState([])
   const [totalCount, setTotalCount] = useState(0)
-  const [filters, setFilters] = useState({ name: '', email: '', phone: '' })
+  const [filters, setFilters] = useState({
+    name: '',
+    email: '',
+    phone: '',
+  })
   const [page, setPage] = useState(1)
   const [limit] = useState(10)
   const [loading, setLoading] = useState(false)
-  const [notif, setNotif] = useState({ open:false, message:'', severity:'info' })
+  const [notif, setNotif] = useState({
+    open:false,
+    message:'',
+    severity:'info',
+  })
 
   useEffect(() => {
     loadPledgers()
@@ -38,10 +54,17 @@ export default function PledgersList() {
 
   return (
     <Box>
-      <Typography variant="h5" mb={2}>
+      <Typography
+        variant="h5"
+        mb={2}
+      >
         Pledgers
       </Typography>
-      <Box display="flex" flexWrap="wrap" gap={2} mb={2}>
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        gap={2}
+        mb={2}>
         <TextField
           label="Name"
           value={filters.name}
@@ -62,7 +85,13 @@ export default function PledgersList() {
         />
       </Box>
       {loading ? <Loader /> : <PledgersTable pledgers={pledgers} />}
-      <Box mt={2} display="flex" justifyContent="center" alignItems="center" gap={2}>
+      <Box
+        mt={2}
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        gap={2}
+      >
         <Button
           variant="outlined"
           onClick={()=>setPage(page>1?page-1:1)}

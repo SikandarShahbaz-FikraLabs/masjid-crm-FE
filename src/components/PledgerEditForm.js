@@ -28,7 +28,12 @@ export default function PledgerEditForm({
   }
 
   return (
-    <Paper sx={{ p:2, mb:2 }}>
+    <Paper
+      sx={{
+        p:2,
+        mb:2,
+      }}
+    >
       <Box
         component="form"
         onSubmit={handleSubmit}

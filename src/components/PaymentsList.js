@@ -12,7 +12,10 @@ import {
   TableBody,
   CircularProgress
 } from '@mui/material'
-import { formatCurrency, formatDate } from '../utils/formatters'
+import {
+  formatCurrency,
+  formatDate,
+} from '../utils/formatters'
 
 export default function PaymentsList({
   payments,
@@ -45,8 +48,16 @@ export default function PaymentsList({
   const percentage = pledgeAmount > 0 ? (totalPaid / pledgeAmount) * 100 : 0
 
   return (
-    <Paper sx={{ p:2, mb:2 }}>
-      <Typography variant="h5" sx={{ mb:2 }}>
+    <Paper
+      sx={{ 
+        p:2,
+        mb:2,
+      }}
+    >
+      <Typography
+        variant="h5"
+        sx={{ mb:2 }}
+      >
         Payment History
       </Typography>
       <Table>
@@ -60,8 +71,13 @@ export default function PaymentsList({
         <TableBody>
           {payments.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={3} align="center">
-                <Typography color="text.secondary">No payments recorded</Typography>
+              <TableCell
+                colSpan={3}
+                align="center"
+              >
+                <Typography color="text.secondary">
+                  No payments recorded
+                </Typography>
               </TableCell>
             </TableRow>
           ) : (
@@ -75,9 +91,21 @@ export default function PaymentsList({
           )}
         </TableBody>
       </Table>
-      <Box display="flex" alignItems="center" gap={2} mt={3}>
-        <Box position="relative" display="inline-flex">
-          <CircularProgress variant="determinate" value={percentage} size={110} />
+      <Box
+        display="flex"
+        alignItems="center"
+        gap={2}
+        mt={3}
+      >
+        <Box
+          position="relative"
+          display="inline-flex"
+        >
+          <CircularProgress
+            variant="determinate"
+            value={percentage}
+            size={110}
+          />
           <Box
             position="absolute"
             top={0}
@@ -88,13 +116,23 @@ export default function PaymentsList({
             alignItems="center"
             justifyContent="center"
           >
-            <Typography variant="caption" component="div" color="text.secondary">
+            <Typography
+              variant="caption"
+              component="div"
+              color="text.secondary"
+            >
               {`${Math.round(percentage)}%`} Paid
             </Typography>
           </Box>
         </Box>
       </Box>
-      <Typography variant="subtitle1" sx={{ mt:3, mb:1 }}>
+      <Typography
+        variant="subtitle1"
+        sx={{
+          mt:3,
+          mb:1,
+        }}
+      >
         Add Payment Point
       </Typography>
       <Box

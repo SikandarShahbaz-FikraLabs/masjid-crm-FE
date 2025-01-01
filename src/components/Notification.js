@@ -1,7 +1,7 @@
 import React from 'react'
 import {
-    Snackbar,
-    Alert,
+  Snackbar,
+  Alert,
 } from '@mui/material'
 
 export default function Notification({

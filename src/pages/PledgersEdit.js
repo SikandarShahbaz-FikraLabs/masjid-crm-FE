@@ -1,8 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import React, {
+  useEffect,
+  useState,
+} from 'react'
+import {
+  useParams,
+  useNavigate,
+} from 'react-router-dom'
 import {
   getPledger,
-  updatePledger
+  updatePledger,
+  addContact
 } from '../services/api'
 import {
   Typography,
@@ -134,13 +141,9 @@ export default function PledgersEdit() {
         onAdd={async (data) => {
           setLoading(true)
           try {
-            await fetch(`${process.env.REACT_APP_API_URL}/contacts`, {
-              method:'POST',
-              headers:{ 'Content-Type':'application/json' },
-              body:JSON.stringify({
-                ...data,
-                pledgerId:id
-              })
+            await addContact({
+              ...data,
+              pledgerId:id
             })
             setNotif({
               open:true,

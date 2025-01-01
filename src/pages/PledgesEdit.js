@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import React, {
+  useEffect,
+  useState,
+} from 'react'
+import {
+  useParams,
+  useNavigate,
+} from 'react-router-dom'
 import {
   getPledge,
-  updatePledge,
-  addPayment
+  addPayment,
+  addContact
 } from '../services/api'
 import {
   Typography,
   Button,
-  Box
+  Box,
 } from '@mui/material'
 import Loader from '../components/Loader'
 import Notification from '../components/Notification'
@@ -105,13 +111,28 @@ export default function PledgesEdit() {
           borderRadius: '4px'
         }}
       >
-        <Typography variant="h5" sx={{ fontWeight:'bold' }}>
+        <Typography
+          variant="h5"
+          sx={{ fontWeight:'bold' }}
+        >
           Pledge Amount (CA$)
         </Typography>
-        <Typography variant="h4" sx={{ color:'primary.main', mb:2 }}>
+        <Typography
+          variant="h4"
+          sx={{
+            color:'primary.main',
+            mb:2,
+          }}
+        >
           {pledge?.pledgeAmount}
         </Typography>
-        <Typography variant="h6" sx={{ fontWeight:'bold', mt:2 }}>
+        <Typography
+          variant="h6"
+          sx={{
+            fontWeight:'bold',
+            mt:2,
+          }}
+        >
           Pledger
         </Typography>
         {pledger && (
@@ -131,34 +152,28 @@ export default function PledgesEdit() {
 
       <ContactsList
         contacts={contacts}
-        onAdd={(data) => {
-          // Add new contact to this pledger
+        onAdd={async (data) => {
           setLoading(true)
-          fetch(`${process.env.REACT_APP_API_URL}/contacts`, {
-            method: 'POST',
-            headers: { 'Content-Type':'application/json' },
-            body: JSON.stringify({
+          try {
+            await addContact({
               ...data,
               pledgerId: pledger?._id
             })
-          })
-          .then(r => r.json())
-          .then(() => {
             loadData()
             setNotif({
               open:true,
               message:'Contact added',
               severity:'success'
             })
-          })
-          .catch(() => {
+          } catch {
             setNotif({
               open:true,
               message:'Failed to add contact',
               severity:'error'
             })
-          })
-          .finally(() => setLoading(false))
+          } finally {
+            setLoading(false)
+          }
         }}
       />
 
