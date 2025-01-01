@@ -21,6 +21,7 @@ import {
 import Loader from '../components/Loader'
 import Notification from '../components/Notification'
 import ContactsList from '../components/ContactsList'
+import { formatDate } from '../utils/formatters'
 
 export default function PledgersEdit() {
   const { id } = useParams()
@@ -184,7 +185,9 @@ export default function PledgersEdit() {
                 }
               }}
             >
-              <Typography>Pledge Amount: {pl.pledgeAmount}</Typography>
+              <Typography>
+                ${pl.pledgeAmount} pledge imported on {formatDate(pl.createdAt)}
+              </Typography>
               <Button
                 variant="outlined"
                 size="small"
