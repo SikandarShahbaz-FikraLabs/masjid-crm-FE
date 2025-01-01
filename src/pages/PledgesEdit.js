@@ -146,7 +146,7 @@ export default function PledgesEdit() {
           variant="contained"
           onClick={handleEditPledger}
         >
-          Edit Pledger
+          View Pledger
         </Button>
       </Box>
 

@@ -102,7 +102,7 @@ export default function PledgersEdit() {
         Back
       </Button>
       <Typography variant="h4" mb={2}>
-        Edit Pledger
+        Pledger
       </Typography>
 
       <Paper sx={{ mb:4, p:2 }}>
