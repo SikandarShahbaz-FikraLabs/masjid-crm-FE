@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {
+  useState,
+  useEffect,
+} from 'react'
 import { CssBaseline } from '@mui/material'
 import {
   BrowserRouter as Router,
@@ -23,8 +26,37 @@ import PledgersList from './pages/PledgersList'
 import PledgersEdit from './pages/PledgersEdit'
 import PledgesList from './pages/PledgesList'
 import PledgesEdit from './pages/PledgesEdit'
+import Notification from './components/Notification'
+import Loader from './components/Loader'
+import { io } from 'socket.io-client'
 
 export default function App() {
+  const [activeJobs, setActiveJobs] = useState([])
+
+  useEffect(() => {
+    const socket = io('http://localhost:4000')
+    socket.on('jobWaiting', (data) => {
+      setActiveJobs(prev => [...prev, data.jobId])
+    })
+    socket.on('jobActive', (data) => {
+      setActiveJobs(prev => {
+        if (!prev.includes(data.jobId)) {
+          return [...prev, data.jobId]
+        }
+        return prev
+      })
+    })
+    socket.on('jobCompleted', (data) => {
+      setActiveJobs(prev => prev.filter(id => id !== data.jobId))
+    })
+    socket.on('jobFailed', (data) => {
+      setActiveJobs(prev => prev.filter(id => id !== data.jobId))
+    })
+    return () => {
+      socket.disconnect()
+    }
+  }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -125,6 +157,26 @@ export default function App() {
           </AnimatePresence>
         </Container>
       </Router>
+      {activeJobs.length > 0 && (
+        <Notification
+          open
+          message={
+            <>
+              <span style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '8px' 
+              }}>
+                <Loader />
+                <strong>Sending emails/texts to pledgers...</strong>
+              </span>
+            </>
+          }
+          severity="info"
+          autoHideDuration={null}
+          onClose={() => {}}
+        />
+      )}
     </ThemeProvider>
   )
 }

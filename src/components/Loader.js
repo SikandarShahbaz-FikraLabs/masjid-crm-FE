@@ -10,7 +10,7 @@ export default function Loader() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      minHeight="50vh"
+      minHeight="50"
     >
       <CircularProgress />
     </Box>

@@ -9,21 +9,19 @@ export default function Notification({
   onClose,
   message,
   severity,
+  autoHideDuration
 }) {
   return (
     <Snackbar
       open={open}
-      autoHideDuration={3000}
+      autoHideDuration={autoHideDuration}
       onClose={onClose}
-      anchorOrigin={{
-        vertical:'top',
-        horizontal:'center',
-    }}
+      anchorOrigin={{ vertical:'top', horizontal:'center' }}
     >
       <Alert
         onClose={onClose}
         severity={severity}
-        sx={{ width: '100%' }}
+        sx={{ width:'100%' }}
       >
         {message}
       </Alert>
