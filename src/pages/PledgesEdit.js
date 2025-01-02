@@ -1,10 +1,10 @@
 import React, {
   useEffect,
-  useState,
+  useState
 } from 'react'
 import {
   useParams,
-  useNavigate,
+  useNavigate
 } from 'react-router-dom'
 import {
   getPledge,
@@ -14,7 +14,7 @@ import {
 import {
   Typography,
   Button,
-  Box,
+  Box
 } from '@mui/material'
 import Loader from '../components/Loader'
 import Notification from '../components/Notification'
@@ -30,9 +30,9 @@ export default function PledgesEdit() {
   const [contacts, setContacts] = useState([])
   const [loading, setLoading] = useState(false)
   const [notif, setNotif] = useState({
-    open:false,
-    message:'',
-    severity:'info'
+    open: false,
+    message: '',
+    severity: 'info'
   })
 
   useEffect(() => {
@@ -49,9 +49,9 @@ export default function PledgesEdit() {
       setContacts(pRes.data.contacts)
     } catch {
       setNotif({
-        open:true,
-        message:'Failed to load data',
-        severity:'error'
+        open: true,
+        message: 'Failed to load data',
+        severity: 'error'
       })
     }
     setLoading(false)
@@ -65,16 +65,16 @@ export default function PledgesEdit() {
         pledgeId: id
       })
       setNotif({
-        open:true,
-        message:'Payment added',
-        severity:'success'
+        open: true,
+        message: 'Payment added',
+        severity: 'success'
       })
       loadData()
     } catch {
       setNotif({
-        open:true,
-        message:'Failed to add payment',
-        severity:'error'
+        open: true,
+        message: 'Failed to add payment',
+        severity: 'error'
       })
     }
     setLoading(false)
@@ -94,7 +94,7 @@ export default function PledgesEdit() {
       {loading && <Loader />}
       <Button
         onClick={() => navigate('/pledges')}
-        sx={{ mb:2 }}
+        sx={{ mb: 2 }}
         variant="outlined"
       >
         Back
@@ -102,26 +102,25 @@ export default function PledgesEdit() {
       <Typography variant="h4" mb={2}>
         Edit Pledge
       </Typography>
-
       <Box
         sx={{
-          mb:4,
-          p:2,
+          mb: 4,
+          p: 2,
           border: '1px solid #ccc',
           borderRadius: '4px'
         }}
       >
         <Typography
           variant="h5"
-          sx={{ fontWeight:'bold' }}
+          sx={{ fontWeight: 'bold' }}
         >
           Pledge Amount (CA$)
         </Typography>
         <Typography
           variant="h4"
           sx={{
-            color:'primary.main',
-            mb:2,
+            color: 'primary.main',
+            mb: 2
           }}
         >
           {pledge?.pledgeAmount}
@@ -129,14 +128,14 @@ export default function PledgesEdit() {
         <Typography
           variant="h6"
           sx={{
-            fontWeight:'bold',
-            mt:2,
+            fontWeight: 'bold',
+            mt: 2
           }}
         >
           Pledger
         </Typography>
         {pledger && (
-          <Box sx={{ mb:2 }}>
+          <Box sx={{ mb: 2 }}>
             <Typography>Name: {pledger.name}</Typography>
             <Typography>Email: {pledger.email}</Typography>
             <Typography>Phone: {pledger.phone}</Typography>
@@ -149,7 +148,6 @@ export default function PledgesEdit() {
           View Pledger
         </Button>
       </Box>
-
       <ContactsList
         contacts={contacts}
         onAdd={async (data) => {
@@ -157,37 +155,36 @@ export default function PledgesEdit() {
           try {
             await addContact({
               ...data,
-              pledgerId: pledger?._id
+              pledgerId: pledger?._id,
+              pledgeId: pledge?._id
             })
             loadData()
             setNotif({
-              open:true,
-              message:'Contact added',
-              severity:'success'
+              open: true,
+              message: 'Contact added',
+              severity: 'success'
             })
           } catch {
             setNotif({
-              open:true,
-              message:'Failed to add contact',
-              severity:'error'
+              open: true,
+              message: 'Failed to add contact',
+              severity: 'error'
             })
           } finally {
             setLoading(false)
           }
         }}
       />
-
       <PaymentsList
         payments={payments}
         onAdd={handleAddPayment}
         pledgeAmount={pledge.pledgeAmount}
       />
-
       <Notification
         open={notif.open}
         message={notif.message}
         severity={notif.severity}
-        onClose={() => setNotif({ ...notif, open:false })}
+        onClose={() => setNotif({ ...notif, open: false })}
       />
     </Box>
   )
