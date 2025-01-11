@@ -39,3 +39,6 @@ export const getPayments = (pledgeId) =>
 
 export const addPayment = (data) =>
   axios.post(`${API_URL}/payments`, data)
+
+export const getDashboardData = () =>
+  axios.get(`${API_URL}/dashboard`)
